@@ -44,4 +44,13 @@ public class RoomsController : ControllerBase
 
         return Ok(room);
     }
+
+    [HttpGet("building/{buildingCode}")]
+    public ActionResult<IEnumerable<Room>> GetRoomsByBuilding(string buildingCode)
+    {
+        var rooms = AppData.Rooms
+            .Where(r => r.BuildingCode.Equals(buildingCode, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+        return Ok(rooms);
+    }
 }
