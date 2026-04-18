@@ -32,4 +32,16 @@ public class RoomsController : ControllerBase
 
         return Ok(rooms);
     }
+
+    [HttpGet("{id:int}")]
+    public ActionResult<Room> GetRoomById(int id)
+    {
+        var room = AppData.Rooms.FirstOrDefault(r => r.Id == id);
+        if (room == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(room);
+    }
 }
