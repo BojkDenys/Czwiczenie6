@@ -53,4 +53,13 @@ public class RoomsController : ControllerBase
             .ToList();
         return Ok(rooms);
     }
+
+    [HttpPost]
+    public ActionResult<Room> CreateRoom([FromBody] Room room)
+    {
+        var newId = AppData.Rooms.Max(r => r.Id) + 1;
+        room.Id = newId;
+        AppData.Rooms.Add(room);
+        return CreatedAtAction(nameof(GetRoomById), new { id = room.Id }, room);
+    } 
 }
