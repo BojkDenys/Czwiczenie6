@@ -80,5 +80,23 @@ public class RoomsController : ControllerBase
         room.Floor = updatedRoom.Floor;
         return Ok(room);
     }
-    
+
+    [HttpDelete("{id:int}")]
+    public IActionResult DeleteRoom(int id)
+    {
+        var room = AppData.Rooms.FirstOrDefault(r => r.Id == id);
+        if (room == null)
+        {
+            return NotFound();
+        }
+
+        var hasReservation = AppData.Reservations.Any(r => r.RoomId == id);
+        if (hasReservation)
+        {
+            return Conflict("You can not delete room with reservation");
+        }
+
+        AppData.Rooms.Remove(room);
+        return NoContent();
+    }
 }
