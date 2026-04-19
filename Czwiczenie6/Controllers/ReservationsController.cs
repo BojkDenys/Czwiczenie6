@@ -114,4 +114,17 @@ public class ReservationsController : ControllerBase
         reservation.Topic = updatedReservation.Topic;
         return Ok(room);
     }
+
+    [HttpDelete("{id:int}")]
+    public IActionResult DeleteReservation(int id)
+    {
+        var reservation = AppData.Reservations.FirstOrDefault(r => r.Id == id);
+        if (reservation == null)
+        {
+            return NotFound();
+        }
+
+        AppData.Reservations.Remove(reservation);
+        return NoContent();
+    }
 }
