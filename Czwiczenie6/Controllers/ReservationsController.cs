@@ -32,5 +32,16 @@ public class ReservationsController : ControllerBase
 
         return Ok(reservations);
     }
-    
+
+    [HttpGet("{id:int}")]
+    public ActionResult<Reservation> GetReservationById(int id)
+    {
+        var reservation = AppData.Reservations.FirstOrDefault(r => r.Id == id);
+        if (reservation == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(reservation);
+    }
 }
