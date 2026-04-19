@@ -96,10 +96,11 @@ public class ReservationsController : ControllerBase
         }
 
         var isReservation = AppData.Reservations.Any(r =>
-            r.RoomId == reservation.RoomId &&
-            r.Date == reservation.Date &&
-            reservation.StartTime < r.EndTime &&
-            reservation.EndTime > r.StartTime);
+            r.Id != id &&
+            r.RoomId == updatedReservation.RoomId &&
+            r.Date == updatedReservation.Date &&
+            updatedReservation.StartTime < r.EndTime &&
+            updatedReservation.EndTime > r.StartTime);
         if (isReservation)
         {
             return Conflict("It is another reservation for this room for this time");
