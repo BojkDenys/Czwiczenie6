@@ -62,6 +62,64 @@ public class AppData
                 isActive = false
             }
         };
-        
+        Reservations = new List<Reservation>
+        {
+            new Reservation
+            {
+                Id = 1,
+                Date = new DateOnly(2026, 4, 19),
+                StartTime = new TimeOnly(9, 0),
+                EndTime = new TimeOnly(10, 30),
+                OrganizerName = "Denys Boiko",
+                RoomId = 1,
+                Status = "confirmed",
+                Topic = "Java 2026"
+            },
+            new Reservation
+            {
+                Id = 2,
+                Date = new DateOnly(2026, 4, 19),
+                StartTime = new TimeOnly(11, 0),
+                EndTime = new TimeOnly(12, 30),
+                OrganizerName = "August Rugoz",
+                RoomId = 2,
+                Status = "planned",
+                Topic = "C# 2026"
+            },
+            new Reservation
+            {
+                Id = 3,
+                Date = new DateOnly(2026, 4, 20),
+                StartTime = new TimeOnly(13, 0),
+                EndTime = new TimeOnly(14, 0),
+                OrganizerName = "Mychajlo Cherpak",
+                RoomId = 3,
+                Status = "confirmed",
+                Topic = "Python 2026"
+            },
+            new Reservation
+            {
+                Id = 4,
+                Date = new DateOnly(2026, 4, 21),
+                StartTime = new TimeOnly(8, 30),
+                EndTime = new TimeOnly(10, 0),
+                OrganizerName = "Voidek Pamanchuk",
+                RoomId = 4,
+                Status = "cancelled",
+                Topic = "C++ 2026"
+            },
+            new Reservation
+            {
+                Id = 5,
+                Date = new DateOnly(2026, 4, 22),
+                StartTime = new TimeOnly(15, 0),
+                EndTime = new TimeOnly(16, 30),
+                OrganizerName = "Purum Surum",
+                RoomId = 2,
+                Status = "confirmed",
+                Topic = "C 2026"
+            }
+        };
+
     }
 }
