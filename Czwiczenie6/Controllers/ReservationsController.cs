@@ -74,4 +74,44 @@ public class ReservationsController : ControllerBase
         AppData.Reservations.Add(reservation);
         return CreatedAtAction(nameof(GetReservationById), new { id = reservation.Id },reservation);
     }
+
+    [HttpPut("{id:int}")]
+    public IActionResult UpdateReservation(int id, [FromBody] Reservation updatedReservation)
+    {
+        var reservation = AppData.Reservations.FirstOrDefault(r => r.Id == id);
+        if (reservation == null)
+        {
+            return NotFound();
+        }
+
+        var room = AppData.Rooms.FirstOrDefault(r => r.Id == updatedReservation.RoomId);
+        if (room == null)
+        {
+            return BadRequest("Invalid room Id");
+        }
+
+        if (!room.isActive)
+        {
+            return BadRequest("Can not create reservation for inactive room");
+        }
+
+        var isReservation = AppData.Reservations.Any(r =>
+            r.RoomId == reservation.RoomId &&
+            r.Date == reservation.Date &&
+            reservation.StartTime < r.EndTime &&
+            reservation.EndTime > r.StartTime);
+        if (isReservation)
+        {
+            return Conflict("It is another reservation for this room for this time");
+        }
+
+        reservation.RoomId = updatedReservation.RoomId;
+        reservation.Date = updatedReservation.Date;
+        reservation.EndTime = updatedReservation.EndTime;
+        reservation.StartTime = updatedReservation.StartTime;
+        reservation.Status = updatedReservation.Status;
+        reservation.OrganizerName = updatedReservation.OrganizerName;
+        reservation.Topic = updatedReservation.Topic;
+        return Ok(room);
+    }
 }
